@@ -1,0 +1,138 @@
+[
+  {
+    "FIELD1":1,
+    "Metric":"# of FS found",
+    "Average":110,
+    "StdDev":"NA",
+    "Min":110,
+    "Max":110
+  },
+  {
+    "FIELD1":2,
+    "Metric":"Abs Pitch Min (deg)",
+    "Average":-110.900547696901,
+    "StdDev":"2.20657616318001",
+    "Min":-115.816183196361,
+    "Max":-105.209161733268
+  },
+  {
+    "FIELD1":3,
+    "Metric":"Abs Pitch Max (deg)",
+    "Average":15.9867473674563,
+    "StdDev":"0.993041846541694",
+    "Min":13.8135362237533,
+    "Max":18.3358332526352
+  },
+  {
+    "FIELD1":4,
+    "Metric":"Abs Pitch @ FS (deg)",
+    "Average":7.66959579453212,
+    "StdDev":"3.35297013204426",
+    "Min":2.04371451156134,
+    "Max":14.3388198206127
+  },
+  {
+    "FIELD1":5,
+    "Metric":"Abs Pitch @ TO (deg)",
+    "Average":-48.9805896136085,
+    "StdDev":"5.70560141751743",
+    "Min":-55.9508143427553,
+    "Max":-29.1389805701428
+  },
+  {
+    "FIELD1":6,
+    "Metric":"Abs Roll @ FS (deg)",
+    "Average":35.2165047780336,
+    "StdDev":"1.45245852506962",
+    "Min":31.6977125189098,
+    "Max":37.732732291308
+  },
+  {
+    "FIELD1":7,
+    "Metric":"Abs Roll @ TO (deg)",
+    "Average":38.0550589220827,
+    "StdDev":"1.57332429716736",
+    "Min":33.7542103783953,
+    "Max":41.8037985228548
+  },
+  {
+    "FIELD1":8,
+    "Metric":"Pronation Exursion (deg)",
+    "Average":-5.49381351767971,
+    "StdDev":"1.44202307488977",
+    "Min":-8.41260569317822,
+    "Max":-1.71960590104811
+  },
+  {
+    "FIELD1":9,
+    "Metric":"Time to Max Pron (ms)",
+    "Average":68.4636363636364,
+    "StdDev":"19.3593147922222",
+    "Min":45,
+    "Max":115
+  },
+  {
+    "FIELD1":10,
+    "Metric":"Max Pron Vel (deg/s)",
+    "Average":579.753528941761,
+    "StdDev":"218.500968770344",
+    "Min":238.83056640625,
+    "Max":844.29931640625
+  },
+  {
+    "FIELD1":11,
+    "Metric":"Pitch @ Max Pronation (deg)",
+    "Average":-9.95659496927148,
+    "StdDev":"1.11753106510089",
+    "Min":-13.2681568032829,
+    "Max":-7.85389633666516
+  },
+  {
+    "FIELD1":12,
+    "Metric":"Contact Time (ms)",
+    "Average":221.772727272727,
+    "StdDev":"12.9428235160315",
+    "Min":175,
+    "Max":240
+  },
+  {
+    "FIELD1":13,
+    "Metric":"Cycle Time (ms)",
+    "Average":687.145454545455,
+    "StdDev":"9.32967679276983",
+    "Min":655,
+    "Max":710
+  },
+  {
+    "FIELD1":14,
+    "Metric":"Stride Rate (str/min)",
+    "Average":87.3337575784988,
+    "StdDev":"1.18953280611243",
+    "Min":84.5070422535211,
+    "Max":91.6030534351145
+  },
+  {
+    "FIELD1":15,
+    "Metric":"Peak G's - X",
+    "Average":12.5315030184659,
+    "StdDev":"2.71749468865969",
+    "Min":4.2041015625,
+    "Max":16
+  },
+  {
+    "FIELD1":16,
+    "Metric":"Peak G's - Y",
+    "Average":12.0002530184659,
+    "StdDev":"2.54176462904131",
+    "Min":5.82861328125,
+    "Max":15.76025390625
+  },
+  {
+    "FIELD1":17,
+    "Metric":"Peak G's - Z",
+    "Average":9.03134321732955,
+    "StdDev":"2.42757978945365",
+    "Min":5.3671875,
+    "Max":15.28662109375
+  }
+]

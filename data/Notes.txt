@@ -1,0 +1,5 @@
+Convert csv to json
+http://www.convertcsv.com/csv-to-json.htm
+
+this doesn't get the header in line 2, it gets field names in line 1
+edit out header

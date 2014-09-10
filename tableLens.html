@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>table lens</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://codeorigin.jquery.com/jquery-2.0.3.js"></script>
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
+    <script type="text/javascript" src="js/tableLens.js"></script>
+</head>
+<body>
+<div class="chart"></div>
+    <script>
+        var data = {};
+        var numRecords = 0;
+        var means = [];
+
+        $.getJSON("data/white_peg31.json", function(data) {
+            console.log(data);
+            // data is a JavaScript object now. Handle it as such
+            numRecords = data[0].Average;
+            console.log(numRecords);
+            getMeans();
+        });
+
+        function getMeans() {
+            for (var i=0; i<data.length; i++) {
+                means[i] = data[i].Average;
+            }
+            console.log(means);
+        }
+
+        d3.select(".chart")
+                .selectAll("div")
+                .data(data)
+                .enter().append("div")
+                .style("width", function(d) { return d * 10 + "px"; })
+                .text(function(d) { return d; });
+    </script>
+
+<!--<script>-->
+
+    <!--var margin = {top: 30, right: 10, bottom: 10, left: 10},-->
+            <!--width = 960 - margin.left - margin.right,-->
+            <!--height = 500 - margin.top - margin.bottom;-->
+
+    <!--var x = d3.scale.linear()-->
+            <!--.range([0, width])-->
+
+    <!--var y = d3.scale.ordinal()-->
+            <!--.rangeRoundBands([0, height], .2);-->
+
+    <!--var xAxis = d3.svg.axis()-->
+            <!--.scale(x)-->
+            <!--.orient("top");-->
+
+    <!--var svg = d3.select("body").append("svg")-->
+            <!--.attr("width", width + margin.left + margin.right)-->
+            <!--.attr("height", height + margin.top + margin.bottom)-->
+            <!--.append("g")-->
+            <!--.attr("transform", "translate(" + margin.left + "," + margin.top + ")");-->
+
+    <!--d3.tsv("data.tsv", type, function(error, data) {-->
+        <!--x.domain(d3.extent(data, function(d) { return d.value; })).nice();-->
+        <!--y.domain(data.map(function(d) { return d.name; }));-->
+
+        <!--svg.selectAll(".bar")-->
+                <!--.data(data)-->
+                <!--.enter().append("rect")-->
+                <!--.attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })-->
+                <!--.attr("x", function(d) { return x(Math.min(0, d.value)); })-->
+                <!--.attr("y", function(d) { return y(d.name); })-->
+                <!--.attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })-->
+                <!--.attr("height", y.rangeBand());-->
+
+        <!--svg.append("g")-->
+                <!--.attr("class", "x axis")-->
+                <!--.call(xAxis);-->
+
+        <!--svg.append("g")-->
+                <!--.attr("class", "y axis")-->
+                <!--.append("line")-->
+                <!--.attr("x1", x(0))-->
+                <!--.attr("x2", x(0))-->
+                <!--.attr("y2", height);-->
+
+    <!--});-->
+
+    <!--function type(d) {-->
+        <!--d.value = +d.value;-->
+        <!--return d;-->
+    <!--}-->
+
+<!--</script>-->
+
+</body>
+</html>
