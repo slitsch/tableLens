@@ -12,50 +12,86 @@
     <script type="text/javascript" src="js/tableLens.js"></script>
 </head>
 <body>
-<div class="chart"></div>
+<div class="chart">bar Chart</div>
     <script>
+        var dataFiles = ["white_peg31.json","orange_peg30.json"]; //list of runner files
         var data = {};
         var numRecords = 0;
-        var means = [];
+        var dataArr = [];
+        var x = {};
 
-        $.getJSON("data/white_peg31.json", function(data) {
-            console.log(data);
-            // data is a JavaScript object now. Handle it as such
-            numRecords = data[0].Average;
-            console.log(numRecords);
-            getMeans();
+        //read data files in loop and call them ??
+        //        function getDataFiles () {
+        //            for (var i=0; i < dataFiles.length; i++) {
+        //
+        //            }
+        //        }
+        //get the averages and number of records
+
+        data = d3.tsv("data/White_Peg31_metrics.tsv", function(data2) {
+//            console.log(data2);
+            data2.forEach(function(d) {
+                dataArr.push(parseFloat(d.Average));
+            });
+//            console.log(data[0].Average);
+            numRecords = data2[0].Average;
+            delete data2[0];
+            console.log(dataArr);
+
+            x = d3.scale.linear()
+                    .domain([d3.min(dataArr), d3.max(dataArr)])
+                    .range([-100, 1000]);
+
+            d3.select(".chart")
+                    .selectAll("div")
+                    .data(dataArr)
+                    .enter().append("div")
+                    .style("width", function(d) { return x(d) + "px"; })
+                    .text(function(d) { return d; });
+
+            return data2
         });
 
-        function getMeans() {
-            for (var i=0; i<data.length; i++) {
-                means[i] = data[i].Average;
-            }
-            console.log(means);
-        }
+        //    Scaling fn from domain 0 to data max value, hardcoded/mapped to range 0-420
 
-        d3.select(".chart")
-                .selectAll("div")
-                .data(data)
-                .enter().append("div")
-                .style("width", function(d) { return d * 10 + "px"; })
-                .text(function(d) { return d; });
-    </script>
+
+
+
+
+
+
+        </script>
 
 <!--<script>-->
 
-    <!--var margin = {top: 30, right: 10, bottom: 10, left: 10},-->
+    <!--var n = 4, // number of layers-->
+            <!--m = 58, // number of samples per layer-->
+            <!--stack = d3.layout.stack(),-->
+            <!--layers = stack(d3.range(n).map(function() { return bumpLayer(m, .1); })),-->
+            <!--yGroupMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y; }); }),-->
+            <!--yStackMax = d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d.y0 + d.y; }); });-->
+
+    <!--var margin = {top: 40, right: 10, bottom: 20, left: 10},-->
             <!--width = 960 - margin.left - margin.right,-->
             <!--height = 500 - margin.top - margin.bottom;-->
 
-    <!--var x = d3.scale.linear()-->
-            <!--.range([0, width])-->
+    <!--var x = d3.scale.ordinal()-->
+            <!--.domain(d3.range(m))-->
+            <!--.rangeRoundBands([0, width], .08);-->
 
-    <!--var y = d3.scale.ordinal()-->
-            <!--.rangeRoundBands([0, height], .2);-->
+    <!--var y = d3.scale.linear()-->
+            <!--.domain([0, yStackMax])-->
+            <!--.range([height, 0]);-->
+
+    <!--var color = d3.scale.linear()-->
+            <!--.domain([0, n - 1])-->
+            <!--.range(["#aad", "#556"]);-->
 
     <!--var xAxis = d3.svg.axis()-->
             <!--.scale(x)-->
-            <!--.orient("top");-->
+            <!--.tickSize(0)-->
+            <!--.tickPadding(6)-->
+            <!--.orient("bottom");-->
 
     <!--var svg = d3.select("body").append("svg")-->
             <!--.attr("width", width + margin.left + margin.right)-->
@@ -63,35 +99,85 @@
             <!--.append("g")-->
             <!--.attr("transform", "translate(" + margin.left + "," + margin.top + ")");-->
 
-    <!--d3.tsv("data.tsv", type, function(error, data) {-->
-        <!--x.domain(d3.extent(data, function(d) { return d.value; })).nice();-->
-        <!--y.domain(data.map(function(d) { return d.name; }));-->
+    <!--var layer = svg.selectAll(".layer")-->
+            <!--.data(layers)-->
+            <!--.enter().append("g")-->
+            <!--.attr("class", "layer")-->
+            <!--.style("fill", function(d, i) { return color(i); });-->
 
-        <!--svg.selectAll(".bar")-->
-                <!--.data(data)-->
-                <!--.enter().append("rect")-->
-                <!--.attr("class", function(d) { return d.value < 0 ? "bar negative" : "bar positive"; })-->
-                <!--.attr("x", function(d) { return x(Math.min(0, d.value)); })-->
-                <!--.attr("y", function(d) { return y(d.name); })-->
-                <!--.attr("width", function(d) { return Math.abs(x(d.value) - x(0)); })-->
-                <!--.attr("height", y.rangeBand());-->
+    <!--var rect = layer.selectAll("rect")-->
+            <!--.data(function(d) { return d; })-->
+            <!--.enter().append("rect")-->
+            <!--.attr("x", function(d) { return x(d.x); })-->
+            <!--.attr("y", height)-->
+            <!--.attr("width", x.rangeBand())-->
+            <!--.attr("height", 0);-->
 
-        <!--svg.append("g")-->
-                <!--.attr("class", "x axis")-->
-                <!--.call(xAxis);-->
+    <!--rect.transition()-->
+            <!--.delay(function(d, i) { return i * 10; })-->
+            <!--.attr("y", function(d) { return y(d.y0 + d.y); })-->
+            <!--.attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); });-->
 
-        <!--svg.append("g")-->
-                <!--.attr("class", "y axis")-->
-                <!--.append("line")-->
-                <!--.attr("x1", x(0))-->
-                <!--.attr("x2", x(0))-->
-                <!--.attr("y2", height);-->
+    <!--svg.append("g")-->
+            <!--.attr("class", "x axis")-->
+            <!--.attr("transform", "translate(0," + height + ")")-->
+            <!--.call(xAxis);-->
 
-    <!--});-->
+    <!--d3.selectAll("input").on("change", change);-->
 
-    <!--function type(d) {-->
-        <!--d.value = +d.value;-->
-        <!--return d;-->
+    <!--var timeout = setTimeout(function() {-->
+        <!--d3.select("input[value=\"grouped\"]").property("checked", true).each(change);-->
+    <!--}, 2000);-->
+
+    <!--function change() {-->
+        <!--clearTimeout(timeout);-->
+        <!--if (this.value === "grouped") transitionGrouped();-->
+        <!--else transitionStacked();-->
+    <!--}-->
+
+    <!--function transitionGrouped() {-->
+        <!--y.domain([0, yGroupMax]);-->
+
+        <!--rect.transition()-->
+                <!--.duration(500)-->
+                <!--.delay(function(d, i) { return i * 10; })-->
+                <!--.attr("x", function(d, i, j) { return x(d.x) + x.rangeBand() / n * j; })-->
+                <!--.attr("width", x.rangeBand() / n)-->
+                <!--.transition()-->
+                <!--.attr("y", function(d) { return y(d.y); })-->
+                <!--.attr("height", function(d) { return height - y(d.y); });-->
+    <!--}-->
+
+    <!--function transitionStacked() {-->
+        <!--y.domain([0, yStackMax]);-->
+
+        <!--rect.transition()-->
+                <!--.duration(500)-->
+                <!--.delay(function(d, i) { return i * 10; })-->
+                <!--.attr("y", function(d) { return y(d.y0 + d.y); })-->
+                <!--.attr("height", function(d) { return y(d.y0) - y(d.y0 + d.y); })-->
+                <!--.transition()-->
+                <!--.attr("x", function(d) { return x(d.x); })-->
+                <!--.attr("width", x.rangeBand());-->
+    <!--}-->
+
+    <!--// Inspired by Lee Byron's test data generator.-->
+    <!--function bumpLayer(n, o) {-->
+
+        <!--function bump(a) {-->
+            <!--var x = 1 / (.1 + Math.random()),-->
+                    <!--y = 2 * Math.random() - .5,-->
+                    <!--z = 10 / (.1 + Math.random());-->
+            <!--for (var i = 0; i < n; i++) {-->
+                <!--var w = (i / n - y) * z;-->
+                <!--a[i] += x * Math.exp(-w * w);-->
+            <!--}-->
+        <!--}-->
+
+        <!--var a = [], i;-->
+        <!--for (i = 0; i < n; ++i) a[i] = o + o * Math.random();-->
+        <!--for (i = 0; i < 5; ++i) bump(a);-->
+        <!--return a.map(function(d, i) { return {x: i, y: Math.max(0, d)}; });-->
     <!--}-->
 
 <!--</script>-->

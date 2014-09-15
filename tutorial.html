@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Simple bar chart</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+    <script type="text/javascript" src="http://codeorigin.jquery.com/jquery-2.0.3.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+
+    <script type="text/javascript" src="js/tableLens.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Table Lens Example</a>
+
+            <div class="btn-group" data-toggle="buttons-checkbox">
+                <button type="button" name="speed" value="1" class="btn btn-primary">Speed</button>
+                <button type="button" name="impact_gs" value="1" class="btn btn-primary">Impact G's</button>
+                <button type="button" name="braking_gs" value="1" class="btn btn-primary">Braking G's</button>
+                <button type="button" name="pron_e" value="1" class="btn btn-primary">PronE (deg)</button>
+                <button type="button" name="pron_v" value="1" class="btn btn-primary">PronV</button>
+                <button type="button" name="contact_time" value="1" class="btn btn-primary">Contact Time (ms)</button>
+                <button type="button" name="stride_length" value="1" class="btn btn-primary">Stride Length</button>
+                <button type="button" name="stride_rate" value="1" class="btn btn-primary">Stride Rate</button>
+                <button type="button" name="pith_excursion" value="1" class="btn btn-primary">Pitch Excursion</button>
+                <button type="button" name="contact_cycle" value="1" class="btn btn-primary">Contact Time / Cycle Time</button>
+            </div>
+    </div>
+    </div>
+</nav>
+
+<row ></row>
+
+
+<script>
+//    var div = document.createElement("div");
+//    div.innerHTML = "Bar Chart test";
+//    document.body.appendChild(div);
+//
+//    d3.select('body')
+//        .style("color", "red")
+//            .style("background-color", 'yellow');
+//
+//
+//
+//    var section=d3.selectAll("section");
+//    var div = section.append("div");
+//    div.html("Bar3");
+</script>
+
+<div class="row">
+    <div class="col-sm-2 well">
+        <div class="chart">Bar Chart
+
+        </div>
+    </div>
+    <div class="col-sm-2 well">
+        <div class="chart">Bar Chart
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //eventually gert data from csv files
+    var run1 = [4,8,15,32,42];
+    var run2 = [674,23,12,34];
+    var dataSets = [run1, run2];
+
+    var metrics = {};
+
+    $('#myButtonGroup .btn.active').each(function() {
+        metrics[this.name] = this.value;
+        console.log(metrics)
+    });
+
+
+//    metrics.forEach(function(d) {
+//        console.log(d)
+//    });
+
+    dataSets.forEach(function(d) {
+        console.log(d)
+    });
+
+//    data = d3.tsv("data/White_Peg31_metrics.tsv", function(data) {
+//        data.forEach(function(d) {
+//            console.log(d.Average);
+//        });
+//        console.log(data[0].Average);
+//        numRecords = data[0].Average;
+//        delete data[0];
+//        console.log(data);
+//        return data
+//    });
+
+//    Scaling fn from domain 0 to data max value, hardcoded/mapped to range 0-420
+    var x = d3.scale.linear()
+            .domain([0, d3.max(data)])
+            .range([0, 80]);
+
+d3.selectAll(".chart")
+.selectAll("div")
+.data(data)
+.enter().append("div")
+.style("width", function(d) { return x(d) + "px"; })
+.text(function(d) { return d; });
+</script>
+</body>
+</html>
