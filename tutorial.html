@@ -44,7 +44,7 @@
                 <button type="button" name="contact_time" value="1" class="btn btn-primary">Contact Time (ms)</button>
                 <button type="button" name="stride_length" value="1" class="btn btn-primary">Stride Length</button>
                 <button type="button" name="stride_rate" value="1" class="btn btn-primary">Stride Rate</button>
-                <button type="button" name="pith_excursion" value="1" class="btn btn-primary">Pitch Excursion</button>
+                <button type="button" name="pitch_excursion" value="1" class="btn btn-primary">Pitch Excursion</button>
                 <button type="button" name="contact_cycle" value="1" class="btn btn-primary">Contact Time / Cycle Time</button>
             </div>
     </div>
@@ -62,72 +62,87 @@
 //    d3.select('body')
 //        .style("color", "red")
 //            .style("background-color", 'yellow');
-//
-//
-//
 //    var section=d3.selectAll("section");
 //    var div = section.append("div");
 //    div.html("Bar3");
 </script>
 
-<div class="row">
-    <div class="col-sm-2 well">
-        <div class="chart">Bar Chart
+<!--headings-->
+<div class="row" id="items">
+    <div class="col-sm-2">Run ID</div>
+    <div class="col-sm-2">Speed</div>
+    <div class="col-sm-2">Impact G's</div>
+    <div class="col-sm-2">Braking G's</div>
+    <div class="col-sm-2">PronE</div>
+                <!--<th>PronV</th>-->
+                <!--<th>Contact Time</th>-->
+                <!--<th>Stride Length</th>-->
+                <!--<th>Stride Rate</th>-->
+                <!--<th>Pitch Excursion</th>-->
+                <!--<th>Contact Time/Cycle Time</th>-->
+</div>
 
-        </div>
+<div class="chartBody">
+
+</div>
+
+<div class="row template">
+    <div class="col-sm-2 well ">
+        <div class="runID"></div>
     </div>
     <div class="col-sm-2 well">
-        <div class="chart">Bar Chart
-
-        </div>
+        <div class="chart speed"></div>
+    </div>
+    <div class="col-sm-2 well">
+        <div class="chart impact_gs"></div>
+    </div>
+    <div class="col-sm-2 well">
+        <div class="chart braking_gs"></div>
+    </div>
+    <div class="col-sm-2 well">
+        <div class="chart pron_e"></div>
     </div>
 </div>
 
 
+
+
 <script>
-    //eventually gert data from csv files
-    var run1 = [4,8,15,32,42];
-    var run2 = [674,23,12,34];
-    var dataSets = [run1, run2];
+    //need to get data from csv files
+    var run1 = [42,32,27,15,8];
+    var run2 = [74,53,23,12,4];
+    var dataSets = [run2, run1];
+    var colorRun = ['lightseagreen','green', 'darkgreen', 'seagreen', 'greenyellow', 'forestgreen' ];
 
-    var metrics = {};
+    dataSets.forEach(function(run) {
+        console.log(run);
 
-    $('#myButtonGroup .btn.active').each(function() {
-        metrics[this.name] = this.value;
-        console.log(metrics)
+        var x = d3.scale.linear()
+                .domain([0, d3.max(run)])
+                .range([0, 80]);
+
+        $('.template .row').clone().appendTo('#items .chartBody');
+        console.log("add row");
+
+//        for (var i = rating - 1; i >= 0; i--) {
+//            $(newRating[i]).addClass('rated');
+//        };
+
+        d3.selectAll(".chart")
+                .selectAll("div")
+                .data(run)
+                .enter().append("div")
+                .style("width", function (d) {
+                    return x(d) + "px";
+                })
+                .style("background-color", function(d){
+                    return colorRun[run.indexOf(d)];
+                })
+                .text(function (d) {
+                    return d;
+                });
+
     });
-
-
-//    metrics.forEach(function(d) {
-//        console.log(d)
-//    });
-
-    dataSets.forEach(function(d) {
-        console.log(d)
-    });
-
-//    data = d3.tsv("data/White_Peg31_metrics.tsv", function(data) {
-//        data.forEach(function(d) {
-//            console.log(d.Average);
-//        });
-//        console.log(data[0].Average);
-//        numRecords = data[0].Average;
-//        delete data[0];
-//        console.log(data);
-//        return data
-//    });
-
-//    Scaling fn from domain 0 to data max value, hardcoded/mapped to range 0-420
-    var x = d3.scale.linear()
-            .domain([0, d3.max(data)])
-            .range([0, 80]);
-
-d3.selectAll(".chart")
-.selectAll("div")
-.data(data)
-.enter().append("div")
-.style("width", function(d) { return x(d) + "px"; })
-.text(function(d) { return d; });
 </script>
 </body>
 </html>

@@ -20,7 +20,8 @@
 
 .chart div {
     font: 10px sans-serif;
-    background-color: steelblue;
+    background-color: seagreen;
+    /*background-color: lightseagreen;*/
     text-align: right;
     padding: 3px;
     margin: 1px;
