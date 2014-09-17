@@ -44,7 +44,7 @@ jQuery(document).ready(function($) {
     $('.btn-group .btn.active').each(function () {
         metrics.push(this.name);
         metrics[this.name] = this.value;
-        console.log(metrics)
+        console.log("metrics")
     });
 });
 

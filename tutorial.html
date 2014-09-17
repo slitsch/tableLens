@@ -91,16 +91,24 @@
         <div class="runID"></div>
     </div>
     <div class="col-sm-2 well">
-        <div class="chart speed"></div>
+        <div class="chart speed">
+            <!--<div></div>-->
+        </div>
     </div>
     <div class="col-sm-2 well">
-        <div class="chart impact_gs"></div>
+        <div class="chart impact_gs">
+            <!--<div></div>-->
+        </div>
     </div>
     <div class="col-sm-2 well">
-        <div class="chart braking_gs"></div>
+        <div class="chart braking_gs">
+            <!--<div></div>-->
+        </div>
     </div>
     <div class="col-sm-2 well">
-        <div class="chart pron_e"></div>
+        <div class="chart pron_e">
+            <!--<div></div>-->
+        </div>
     </div>
 </div>
 
@@ -115,18 +123,23 @@
     var colorRun = ['lightseagreen','green', 'darkgreen', 'seagreen', 'greenyellow', 'forestgreen' ];
 
     dataSets.forEach(function(run) {
-        console.log(run);
+//        console.log(run);
 
         var x = d3.scale.linear()
                 .domain([0, d3.max(run)])
                 .range([0, 80]);
 
-        $('.template .row').clone().appendTo('#items .chartBody');
+        $('.row .template ').clone().appendTo('#items .chartBody');
         console.log("add row");
 
 //        for (var i = rating - 1; i >= 0; i--) {
 //            $(newRating[i]).addClass('rated');
 //        };
+        console.log(run);
+        d3.select(".runID")
+                .data(run)
+                .text(run);
+
 
         d3.selectAll(".chart")
                 .selectAll("div")
